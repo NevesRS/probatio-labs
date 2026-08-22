@@ -1,0 +1,47 @@
+services:
+  attacker:
+    build: ./attacker
+    container_name: attacker
+    tty: true
+    stdin_open: true
+    cap_add:
+      - NET_RAW
+      - NET_ADMIN
+    ports:
+      - "7681:7681"
+    networks:
+      default: {}
+      ot_lab_net:
+        ipv4_address: 172.28.0.10
+
+  target:
+    build: ./target
+    container_name: target
+    volumes:
+      - flag_data:/flag
+    networks:
+      ot_lab_net:
+        ipv4_address: 172.28.0.20
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "8080:8080"
+    volumes:
+      - flag_data:/flag:ro
+    networks:
+      - default
+
+volumes:
+  flag_data:
+
+networks:
+  default:
+  ot_lab_net:
+    driver: bridge
+    internal: true
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/24

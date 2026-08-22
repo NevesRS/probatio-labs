@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Probatio Labs — Laboratório ICS/OT</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #ffffff;
+            color: #333;
+            line-height: 1.7;
+        }
+        .header {
+            background: #000000;
+            border-bottom: 1px solid #CCAA4B;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2rem;
+            color: #ffffff;
+            letter-spacing: 2px;
+        }
+        .header p {
+            color: #CCAA4B;
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        .card {
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+        .card h2 {
+            color: #000000;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .card h2 .num {
+            background: #CCAA4B;
+            color: #fff;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        .card p, .card li {
+            color: #444;
+            margin-bottom: 0.8rem;
+        }
+        .card strong { color: #222; }
+        .card ul {
+            padding-left: 1.5rem;
+        }
+        .card code {
+            background: #f0f2f5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: #CCAA4B;
+            border: 1px solid #e0e0e0;
+        }
+        .highlight {
+            background: #f5f7fa;
+            border-left: 3px solid #CCAA4B;
+            padding: 0.8rem 1rem;
+            border-radius: 0 6px 6px 0;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: #444;
+        }
+        .highlight strong { color: #CCAA4B; }
+        .btn {
+            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: #CCAA4B;
+            color: #000000;
+        }
+        .btn-primary:hover { background: #b8963f; }
+        .btn-terminal {
+            background: #CCAA4B;
+            color: #000000;
+            font-size: 1rem;
+            padding: 0.9rem 2rem;
+        }
+        .btn-terminal:hover { background: #b8963f; }
+        .flag-section {
+            border: 2px solid #CCAA4B;
+        }
+        .flag-input-group {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+        .flag-input-group input {
+            flex: 1;
+            padding: 0.7rem 1rem;
+            background: #f5f7fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            color: #333;
+            font-size: 0.95rem;
+            font-family: monospace;
+        }
+        .flag-input-group input:focus {
+            outline: none;
+            border-color: #CCAA4B;
+        }
+        .flag-input-group button {
+            padding: 0.7rem 1.5rem;
+        }
+        .result {
+            margin-top: 1rem;
+            padding: 0.8rem 1rem;
+            border-radius: 6px;
+            display: none;
+            font-weight: 600;
+        }
+        .result.success {
+            background: #e8f5e9;
+            border: 1px solid #66bb6a;
+            color: #2e7d32;
+            display: block;
+        }
+        .result.error {
+            background: #fdecea;
+            border: 1px solid #ef5350;
+            color: #c62828;
+            display: block;
+        }
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+        .tool-item {
+            background: #f5f7fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 0.8rem;
+            text-align: center;
+        }
+        .tool-item strong { color: #CCAA4B; display: block; margin-bottom: 0.3rem; }
+        .tool-item span { font-size: 0.85rem; color: #666; }
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: #888;
+            font-size: 0.85rem;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 2rem;
+        }
+        .step-link {
+            display: block;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <img src="/static/Icon.png" alt="Probatio Labs" style="height: 100px;">
+    <p>Laboratório Virtual de Segurança ICS/OT</p>
+</div>
+
+<div class="container">
+
+    <!-- 1. Bem-vindo -->
+    <div class="card">
+        <h2><span class="num">1</span> Bem-vindo ao Laboratório</h2>
+        <p>
+            Sistemas de Controle Industrial (ICS) e Tecnologia Operacional (OT)
+            controlam infraestruturas críticas como usinas elétricas, refinarias
+            e estações de tratamento de água. Muitos desses sistemas usam
+            protocolos de comunicação projetados décadas atrás, sem
+            mecanismos modernos de autenticação ou criptografia.
+        </p>
+        <p>
+            Este laboratório simula um cenário real de ataque a um dispositivo
+            industrial vulnerável por projeto, permitindo que você practice
+            técnicas de reconhecimento e exploração em um ambiente seguro e
+            controlado.
+        </p>
+    </div>
+
+    <!-- 2. O Cenário -->
+    <div class="card">
+        <h2><span class="num">2</span> O Cenário</h2>
+        <p>
+            Uma fábrica possui um <strong>controlador industrial (PLC)</strong>
+            que gerencia uma caldeira simulada. O PLC está conectado à rede
+            local e utiliza o protocolo <strong>Modbus/TCP</strong> para
+            comunicação.
+        </p>
+        <div class="highlight">
+            <strong>Problema:</strong> O PLC foi configurado sem autenticação
+            — qualquer dispositivo na mesma rede pode ler e escrever nos
+            registradores de processo, incluindo variáveis críticas de
+            temperatura e pressão.
+        </div>
+        <p>
+            Seu objetivo é explorar essa vulnerabilidade para manipular uma
+            variável crítica do processo.
+        </p>
+    </div>
+
+    <!-- 3. Conceitos Chave -->
+    <div class="card">
+        <h2><span class="num">3</span> Conceitos Chave</h2>
+
+        <p><strong>Modbus/TCP</strong></p>
+        <p>
+            Protocolo de comunicação industrial amplamente utilizado. Opera na
+            porta <code>502/TCP</code> e não possui autenticação nativa —
+            qualquer cliente pode enviar comandos de leitura e escrita.
+        </p>
+
+        <p style="margin-top:1rem;"><strong>Holding Registers</strong></p>
+        <p>
+            Variáveis de processo acessíveis via function code 3 (leitura) e
+            6/16 (escrita). Cada registrador armazena um valor de 16 bits
+            (0–65535). O PLC deste laboratório possui 100 holding registers.
+        </p>
+
+        <p style="margin-top:1rem;"><strong>Reconhecimento de Rede</strong></p>
+        <p>
+            Antes de atacar, é necessário descobrir quais hosts estão ativos
+            na rede e quais portas estão abertas. Ferramentas como
+            <code>nmap</code> são essenciais para essa fase.
+        </p>
+
+        <div class="tools-grid">
+            <div class="tool-item">
+                <strong>nmap</strong>
+                <span>Scan de hosts e portas</span>
+            </div>
+            <div class="tool-item">
+                <strong>pymodbus</strong>
+                <span>Cliente Modbus/TCP</span>
+            </div>
+            <div class="tool-item">
+                <strong>scapy</strong>
+                <span>Pacotes customizados</span>
+            </div>
+            <div class="tool-item">
+                <strong>netcat</strong>
+                <span>Conexões TCP genéricas</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Seu Desafio -->
+    <div class="card">
+        <h2><span class="num">4</span> Seu Desafio</h2>
+        <p>Dentro do terminal do atacante, execute os seguintes passos:</p>
+        <ul>
+            <li>
+                <strong>Descobrir o host alvo</strong> — mapeie a rede
+                <code>172.28.0.0/24</code> para encontrar o PLC.
+            </li>
+            <li>
+                <strong>Identificar o protocolo</strong> — verifique se a
+                porta <code>502</code> está aberta no host encontrado.
+            </li>
+            <li>
+                <strong>Ler o registrador crítico</strong> — utilize
+                <code>pymodbus</code> para ler o holding register de
+                endereço 0.
+            </li>
+            <li>
+                <strong>Explorar a vulnerabilidade</strong> — escreva um
+                valor <strong>≥ 150</strong> no registrador 0 para acionar
+                a geração da flag.
+            </li>
+            <li>
+                <strong>Validar a flag</strong> — copie a flag gerada e
+                volte a esta aba para submetê-la abaixo.
+            </li>
+        </ul>
+
+        <div class="step-link">
+            <a href="http://localhost:7681" target="_blank" class="btn btn-terminal">
+                Abrir Terminal do Atacante ↗
+            </a>
+        </div>
+    </div>
+
+    <!-- 5. Validação -->
+    <div class="card flag-section">
+        <h2><span class="num">5</span> Validar Flag</h2>
+        <p>
+            Após executar o ataque, copie a flag gerada e cole no campo
+            abaixo para validar sua conquista.
+        </p>
+        <div class="flag-input-group">
+            <input
+                type="text"
+                id="flagInput"
+                placeholder="FLAG{modbus_no_auth_...}"
+                autocomplete="off"
+                spellcheck="false"
+            >
+            <button class="btn btn-primary" onclick="submitFlag()">
+                Validar
+            </button>
+        </div>
+        <div id="result" class="result"></div>
+    </div>
+
+</div>
+
+<div class="footer">
+    Desenvolvido como TCC — Probatio Labs
+</div>
+
+<script>
+async function submitFlag() {
+    const input = document.getElementById("flagInput");
+    const result = document.getElementById("result");
+    const flag = input.value.trim();
+
+    if (!flag) {
+        result.className = "result error";
+        result.textContent = "Cole a flag no campo acima.";
+        return;
+    }
+
+    result.className = "result";
+    result.style.display = "none";
+    result.textContent = "Validando...";
+
+    try {
+        const resp = await fetch("/submit", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ flag: flag })
+        });
+        const data = await resp.json();
+
+        if (data.valid) {
+            result.className = "result success";
+        } else {
+            result.className = "result error";
+        }
+        result.textContent = data.message;
+        result.style.display = "block";
+    } catch (e) {
+        result.className = "result error";
+        result.textContent = "Erro ao conectar com o servidor.";
+        result.style.display = "block";
+    }
+}
+
+document.getElementById("flagInput").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") submitFlag();
+});
+</script>
+
+</body>
+</html>
