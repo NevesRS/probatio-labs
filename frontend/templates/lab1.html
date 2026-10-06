@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Desafio 01 — Reconhecimento | Probatio Labs{% endblock %}
+
+{% block content %}
+<section class="lab">
+    <div class="lab__head">
+        <a href="/" class="lab__back">&larr; Desafios</a>
+        <span class="lab__badge" data-badge="1">Desafio 01</span>
+    </div>
+
+    <h1 class="lab__title">Reconhecimento: Exploração de Dispositivo Modbus/TCP</h1>
+    <p class="lab__desc">
+        Incidente de disponibilidade na Planta Industrial "Probatio". Reconstitua,
+        sob perspectiva ofensiva, como a intrusão poderia ter ocorrido: descubra o
+        host industrial, identifique o protocolo e atue sobre a variável crítica.
+    </p>
+    <p class="lab__meta">Rede: <code>172.28.0.0/24</code> · Alvo: <code>172.28.0.20:502</code> · MITRE: Discovery · Collection</p>
+
+    <div class="lab__toolbar">
+        <button type="button" class="lab__hints-btn" data-hints="1">Ver dicas</button>
+        <div class="lab__hints" id="hints-1" hidden>
+            <p>As dicas estão disponíveis dentro do próprio terminal: <code>cat /root/hints.md</code></p>
+        </div>
+    </div>
+
+    <div class="lab__terminal">
+        <iframe src="http://localhost:7681" title="Terminal do laboratório"></iframe>
+    </div>
+
+    <form class="flag-form" data-lab="1">
+        <label class="flag-form__label" for="flag-input-1">Insira a flag</label>
+        <div class="flag-form__row">
+            <input type="text" id="flag-input-1" class="flag-form__input" placeholder="FLAG{...}" autocomplete="off">
+            <button type="submit" class="flag-form__submit">Enviar</button>
+        </div>
+        <p class="flag-form__msg" id="flag-msg-1"></p>
+    </form>
+</section>
+{% endblock %}

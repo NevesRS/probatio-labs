@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Desafio 03 — Impacto | Probatio Labs{% endblock %}
+
+{% block content %}
+<section class="lab">
+    <div class="lab__head">
+        <a href="/" class="lab__back">&larr; Desafios</a>
+        <span class="lab__badge" data-badge="3">Desafio 03</span>
+    </div>
+
+    <h1 class="lab__title">Impacto: Sustentar Condição Anômala</h1>
+    <p class="lab__desc">
+        Após os incidentes anteriores, a Planta "Probatio" adicionou um mecanismo
+        de monitoramento que corrige valores anômalos no registrador crítico.
+        Mantenha a condição anômala de forma persistente, contornando esse monitor.
+    </p>
+    <p class="lab__meta">
+        Rede: <code>172.31.0.0/24</code> · Alvo: <code>172.31.0.20:502</code> ·
+        Regra: valor <code>&ge; 150</code> sustentado por 10 verificações (~10s) ·
+        MITRE: Impair Process Control · Impact
+    </p>
+
+    <div class="lab__toolbar">
+        <button type="button" class="lab__hints-btn" data-hints="3">Ver dicas</button>
+        <div class="lab__hints" id="hints-3" hidden>
+            <p>As dicas estão disponíveis dentro do próprio terminal: <code>cat /root/hints.md</code></p>
+        </div>
+    </div>
+
+    <div class="lab__terminal">
+        <iframe src="http://localhost:7681" title="Terminal do laboratório"></iframe>
+    </div>
+
+    <form class="flag-form" data-lab="3">
+        <label class="flag-form__label" for="flag-input-3">Insira a flag</label>
+        <div class="flag-form__row">
+            <input type="text" id="flag-input-3" class="flag-form__input" placeholder="FLAG{...}" autocomplete="off">
+            <button type="submit" class="flag-form__submit">Enviar</button>
+        </div>
+        <p class="flag-form__msg" id="flag-msg-3"></p>
+    </form>
+</section>
+{% endblock %}

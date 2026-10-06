@@ -1,9 +1,14 @@
-# Desafio 01 — Exploração de Dispositivo Modbus/TCP
+# Desafio 01 — Reconhecimento: Exploração de Dispositivo Modbus/TCP
+
+> **Contexto:** Você é analista de segurança júnior investigando um incidente
+> de disponibilidade na Planta Industrial "Probatio". Um processo crítico
+> (caldeira) reportou leituras anômalas. Sua missão é reconstituir, sob
+> perspectiva ofensiva, como a intrusão poderia ter ocorrido.
 
 ## Objetivo
 
 Descobrir o host industrial na rede do laboratório, identificar o protocolo
-de comunicação, ler o valor de uma variável crítica do processo e escrevê-lo
+de comunicação, ler o valor de uma variável crítica do processo e escrevê-la
 para um valor fora da faixa operacional normal, acionando a geração da flag.
 
 ---
@@ -61,10 +66,10 @@ operacional normal é **20–80**. Para acionar a flag, escreva um valor
 | `nmap`       | Descoberta de hosts e portas             |
 | `scapy`      | Construção e envio de pacotes customizados |
 | `pymodbus`   | Cliente e servidor Modbus/TCP            |
+| `ssh`/`sshpass` | Acesso remoto (usado no Desafio 02)   |
 | `netcat`     | Conexões TCP genéricas                   |
 
 ### 6. Validação da flag
 
 A flag é gerada automaticamente quando o valor do registro crítico atinge
-ou ultrapassa 150. A validação da flag ocorre por fora deste container
-(plataforma web / guia do cenário).
+ou ultrapassa 150. Valide-a no frontend: **http://localhost:8080**.

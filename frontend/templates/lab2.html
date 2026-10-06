@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Desafio 02 — Exploração | Probatio Labs{% endblock %}
+
+{% block content %}
+<section class="lab">
+    <div class="lab__head">
+        <a href="/" class="lab__back">&larr; Desafios</a>
+        <span class="lab__badge" data-badge="2">Desafio 02</span>
+    </div>
+
+    <h1 class="lab__title">Exploração: Credenciais Padrão e Pivoteamento</h1>
+    <p class="lab__desc">
+        A Planta "Probatio" segmentou as redes de TI e de OT e implantou um jump
+        host para acesso remoto — mas configurado com credenciais padrão de
+        fábrica. Explore essa falha, pivoteie entre os segmentos e atinja o PLC
+        na rede industrial.
+    </p>
+    <p class="lab__meta">
+        TI: <code>172.29.0.0/24</code> · OT: <code>172.30.0.0/24</code> ·
+        Jump host: <code>172.29.0.2</code> (ssh admin:admin) ·
+        Alvo: <code>172.30.0.20:502</code> · MITRE: Initial Access · Lateral Movement
+    </p>
+
+    <div class="lab__toolbar">
+        <button type="button" class="lab__hints-btn" data-hints="2">Ver dicas</button>
+        <div class="lab__hints" id="hints-2" hidden>
+            <p>As dicas estão disponíveis dentro do próprio terminal: <code>cat /root/hints.md</code></p>
+        </div>
+    </div>
+
+    <div class="lab__terminal">
+        <iframe src="http://localhost:7681" title="Terminal do laboratório"></iframe>
+    </div>
+
+    <form class="flag-form" data-lab="2">
+        <label class="flag-form__label" for="flag-input-2">Insira a flag</label>
+        <div class="flag-form__row">
+            <input type="text" id="flag-input-2" class="flag-form__input" placeholder="FLAG{...}" autocomplete="off">
+            <button type="submit" class="flag-form__submit">Enviar</button>
+        </div>
+        <p class="flag-form__msg" id="flag-msg-2"></p>
+    </form>
+</section>
+{% endblock %}

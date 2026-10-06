@@ -1,5 +1,7 @@
 FROM debian:bookworm-slim
 
+ARG HINTS_FILE=hints-lab1.md
+
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         nmap \
@@ -10,6 +12,8 @@ RUN apt-get update && \
         curl \
         ca-certificates \
         wget \
+        openssh-client \
+        sshpass \
     && rm -rf /var/lib/apt/lists/*
 
 RUN wget -q https://github.com/tsl0922/ttyd/releases/latest/download/ttyd.x86_64 \
@@ -20,7 +24,7 @@ RUN python3 -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 RUN pip install --no-cache-dir scapy pymodbus
 
-COPY hints.md /root/hints.md
+COPY ${HINTS_FILE} /root/hints.md
 
 EXPOSE 7681
 
