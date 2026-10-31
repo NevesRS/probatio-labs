@@ -25,6 +25,8 @@ nmap -sn 172.31.0.0/24
 nmap -p 502 172.31.0.20
 ```
 
+> **Para estudar:** [nmap — Host Discovery](https://nmap.org/book/man-host-discovery.html) · [nmap — Port Scanning](https://nmap.org/book/man-port-scanning-techniques.html)
+
 ### 2. Observe o comportamento do monitor
 
 Leia o registrador e note o valor normal (50):
@@ -45,6 +47,8 @@ time.sleep(3)
 print(client.read_holding_registers(address=0, count=1, device_id=1).registers)
 # Volta para 50! O monitor resetou o valor.
 ```
+
+> **Para estudar:** [pymodbus — client API](https://pymodbus.readthedocs.io/en/latest/source/client.html)
 
 ### 3. A regra da sustentação
 
@@ -72,6 +76,8 @@ while True:
 Mantenha o loop rodando por **~15 segundos** e interrompa com `Ctrl+C`.
 A flag será gerada enquanto o loop sustenta o valor anômalo.
 
+> **Para estudar:** [Python — `time.sleep`](https://docs.python.org/3/library/time.html#time.sleep) · [Python — loops](https://docs.python.org/3/tutorial/)
+
 ### 5. Por que isso é uma dimensão de evasão?
 
 Nos desafios anteriores, uma única ação bastava. Aqui o alvo reage às suas
@@ -79,6 +85,23 @@ ações (monitoramento defensivo) e você precisa **sustentar** a condição
 atacante apesar da defesa — comportamento equivalente a manter um
 comprometimento ativo sob vigilância em um ambiente real.
 
+> **Para estudar:** [MITRE ATT&CK for ICS — T0836 Impair Process Control](https://attack.mitre.org/techniques/T0836/) · [MITRE ATT&CK for ICS](https://attack.mitre.org/techniques/ics/)
+
 ### 6. Validação da flag
 
-Valide no frontend: **http://localhost:8080** (Desafio 03).
+Valide no frontend: **http://localhost:8080** (Desafio 03). A flag
+também aparece automaticamente no seu terminal assim que o objetivo for
+concluído.
+
+---
+
+## Referências para estudo
+
+| Ferramenta / Tópico | Documentação |
+|---------------------|--------------|
+| pymodbus — client API | <https://pymodbus.readthedocs.io/en/latest/source/client.html> |
+| Python — `time.sleep` | <https://docs.python.org/3/library/time.html#time.sleep> |
+| Python — laços de repetição | <https://docs.python.org/3/tutorial/> |
+| MITRE ATT&CK for ICS — Impair Process Control | <https://attack.mitre.org/techniques/T0836/> |
+| nmap — Host Discovery | <https://nmap.org/book/man-host-discovery.html> |
+| Especificação Modbus | <https://modbus.org/specs.php> |

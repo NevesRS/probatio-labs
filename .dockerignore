@@ -1,0 +1,5 @@
+.git
+.gitignore
+conference_101719.tex
+docker-compose*.yml
+README.md

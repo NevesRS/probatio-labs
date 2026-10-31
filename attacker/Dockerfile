@@ -26,6 +26,9 @@ RUN pip install --no-cache-dir scapy pymodbus
 
 COPY ${HINTS_FILE} /root/hints.md
 
+COPY flag-watch.sh /etc/profile.d/flag-watch.sh
+RUN echo '. /etc/profile.d/flag-watch.sh' >> /etc/bash.bashrc
+
 EXPOSE 7681
 
 CMD ["ttyd", "-p", "7681", "--writable", "bash"]

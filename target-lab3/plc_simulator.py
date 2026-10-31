@@ -18,6 +18,7 @@ INITIAL_VALUE = 50
 ANOMALY_THRESHOLD = 150
 SUSTAIN_REQUIRED = 10
 FLAG_PATH = "/flag/flag.txt"
+HEARTBEAT_PATH = "/flag/.heartbeat"
 
 INSTANCE_SEED = str(uuid.uuid4())
 FLAG_HASH = hashlib.sha256(INSTANCE_SEED.encode()).hexdigest()[:16]
@@ -39,6 +40,8 @@ def monitor(context):
     while True:
         time.sleep(1)
         try:
+            with open(HEARTBEAT_PATH, "w") as f:
+                f.write(str(time.time()))
             store = context[0]
             value = store.getValues(3, CRITICAL_REGISTER_ADDR, count=1)[0]
 

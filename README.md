@@ -328,8 +328,10 @@ Mantenha o loop ~15 segundos e pare com `Ctrl+C`. No log do target:
 
 ### Validação
 
-1. **Frontend:** http://localhost:8080 → desafio → cole a flag → Enviar
-2. **CLI:**
+1. **Terminal:** a flag aparece automaticamente no terminal do attacker
+   com um banner quando o objetivo é concluído
+2. **Frontend:** http://localhost:8080 → desafio → cole a flag → Enviar
+3. **CLI:**
 
 ```bash
 docker compose exec target cat /flag/flag.txt            # lab 1

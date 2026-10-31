@@ -23,6 +23,8 @@ A rede do laboratório é `172.28.0.0/24`. Comece mapeando os hosts ativos:
 nmap -sn 172.28.0.0/24
 ```
 
+> **Para estudar:** [nmap — Host Discovery](https://nmap.org/book/man-host-discovery.html)
+
 ### 2. Scan de portas
 
 O protocolo industrial padrão usa a porta **502/TCP**. Verifique se ela está aberta no host encontrado:
@@ -30,6 +32,8 @@ O protocolo industrial padrão usa a porta **502/TCP**. Verifique se ela está a
 ```bash
 nmap -p 502 172.28.0.20
 ```
+
+> **Para estudar:** [nmap — Port Scanning](https://nmap.org/book/man-port-scanning-techniques.html)
 
 ### 3. Protocolo Modbus/TCP
 
@@ -53,11 +57,15 @@ client.write_register(address=0, value=200, device_id=1)
 client.close()
 ```
 
+> **Para estudar:** [Especificação Modbus](https://modbus.org/specs.php) · [pymodbus](https://pymodbus.readthedocs.io/en/latest/)
+
 ### 4. Variável crítica
 
 A variável de interesse é o **holding register de endereço 0**. A faixa
 operacional normal é **20–80**. Para acionar a flag, escreva um valor
 **≥ 150** nesse registro.
+
+> **Para estudar:** [Modbus — funções Read/Write Single Register](https://modbus.org/specs.php)
 
 ### 5. Ferramentas disponíveis
 
@@ -69,7 +77,25 @@ operacional normal é **20–80**. Para acionar a flag, escreva um valor
 | `ssh`/`sshpass` | Acesso remoto (usado no Desafio 02)   |
 | `netcat`     | Conexões TCP genéricas                   |
 
+> **Para estudar:** [scapy](https://scapy.readthedocs.io/en/latest/) · [sshpass](https://manpages.debian.org/bookworm/sshpass/sshpass.1.en.html) · [netcat](https://manpages.debian.org/bookworm/netcat-openbsd/nc.1.en.html)
+
 ### 6. Validação da flag
 
 A flag é gerada automaticamente quando o valor do registro crítico atinge
 ou ultrapassa 150. Valide-a no frontend: **http://localhost:8080**.
+
+---
+
+## Referências para estudo
+
+Material oficial das ferramentas usadas neste desafio:
+
+| Ferramenta / Tópico | Documentação |
+|---------------------|--------------|
+| nmap — descoberta de hosts (`-sn`) | <https://nmap.org/book/man-host-discovery.html> |
+| nmap — scan de portas | <https://nmap.org/book/man-port-scanning-techniques.html> |
+| nmap — guia de referência completo | <https://nmap.org/book/man.html> |
+| Especificação Modbus (application protocol V1.1b3) | <https://modbus.org/specs.php> |
+| pymodbus — documentação | <https://pymodbus.readthedocs.io/en/latest/> |
+| scapy — documentação | <https://scapy.readthedocs.io/en/latest/> |
+| netcat — man page | <https://manpages.debian.org/bookworm/netcat-openbsd/nc.1.en.html> |

@@ -30,6 +30,8 @@ Mapeie a rede de TI:
 nmap -sn 172.29.0.0/24
 ```
 
+> **Para estudar:** [nmap — Host Discovery](https://nmap.org/book/man-host-discovery.html) · [Docker — redes](https://docs.docker.com/network/)
+
 ### 2. Enumerar o jump host
 
 Descubra os serviços expostos no host suspeito:
@@ -39,6 +41,8 @@ nmap -sV 172.29.0.2
 ```
 
 A porta **22/TCP (SSH)** deve estar aberta.
+
+> **Para estudar:** [nmap — Service/Version Detection](https://nmap.org/book/man-version-detection.html) · [OpenSSH](https://www.openssh.com/manual.html)
 
 ### 3. Credenciais padrão de fábrica
 
@@ -52,6 +56,8 @@ ssh admin@172.29.0.2
 
 > Neste container também há `sshpass` para testes automatizados:
 > `sshpass -p admin ssh admin@172.29.0.2`
+
+> **Para estudar:** [ssh — man page](https://man.openbsd.org/ssh) · [sshpass — man page](https://manpages.debian.org/bookworm/sshpass/sshpass.1.en.html)
 
 ### 4. Da TI para a OT (pivoteamento)
 
@@ -87,16 +93,37 @@ Depois, no seu terminal (atacante), conecte-se ao Modbus via túnel:
 client = ModbusTcpClient("127.0.0.1", port=1502)  # túnel local
 ```
 
+> **Para estudar:** [ssh — encaminhamento local (`-L`)](https://man.openbsd.org/ssh#L) · [pymodbus](https://pymodbus.readthedocs.io/en/latest/)
+
 ### 5. Por que o alvo não é acessível diretamente?
 
 O PLC existe apenas na sub-rede OT. O nó atacante não tem rota até
 `172.30.0.0/24` — o pivoteamento através do jump host é obrigatório.
+
+> **Para estudar:** [Docker — redes](https://docs.docker.com/network/) · [Pivoteamento e túneis com SSH (HackTricks)](https://book.hacktricks.xyz/pentesting/pivoting-ssh-tunnel)
 
 ### 6. Variável crítica
 
 Mesma regra do Desafio 01: holding register **endereço 0**, faixa normal
 **20–80**, escreva **≥ 150** para gerar a flag.
 
+> **Para estudar:** [Especificação Modbus](https://modbus.org/specs.php)
+
 ### 7. Validação da flag
 
 Valide no frontend: **http://localhost:8080** (Desafio 02).
+
+---
+
+## Referências para estudo
+
+| Ferramenta / Tópico | Documentação |
+|---------------------|--------------|
+| nmap — detecção de serviços (`-sV`) | <https://nmap.org/book/man-version-detection.html> |
+| OpenSSH — manual | <https://www.openssh.com/manual.html> |
+| ssh — encaminhamento de portas | <https://man.openbsd.org/ssh#L> |
+| sshpass — man page | <https://manpages.debian.org/bookworm/sshpass/sshpass.1.en.html> |
+| Pivoteamento com SSH (HackTricks) | <https://book.hacktricks.xyz/pentesting/pivoting-ssh-tunnel> |
+| pymodbus — documentação | <https://pymodbus.readthedocs.io/en/latest/> |
+| Especificação Modbus | <https://modbus.org/specs.php> |
+| Docker — redes | <https://docs.docker.com/network/> |

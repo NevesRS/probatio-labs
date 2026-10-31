@@ -25,7 +25,8 @@
     <div class="lab__toolbar">
         <button type="button" class="lab__hints-btn" data-hints="2">Ver dicas</button>
         <div class="lab__hints" id="hints-2" hidden>
-            <p>As dicas estão disponíveis dentro do próprio terminal: <code>cat /root/hints.md</code></p>
+            {{ hints_html|safe }}
+            <p class="lab__hints-note">As mesmas dicas também estão no terminal: <code>cat /root/hints.md</code></p>
         </div>
     </div>
 

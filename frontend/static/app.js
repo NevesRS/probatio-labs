@@ -3,6 +3,58 @@
 
     var TOTAL_LABS = 3;
 
+    var START_CMD = {
+        1: "docker compose up -d --build",
+        2: "docker compose -f docker-compose.lab2.yml up -d --build",
+        3: "docker compose -f docker-compose.lab3.yml up -d --build",
+    };
+
+    function pollActive() {
+        var el = document.getElementById("lab-status");
+        if (!el) return;
+        fetch("/active")
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+                var running = data.active || [];
+                var match = window.location.pathname.match(/^\/lab\/(\d+)$/);
+                if (match) {
+                    var lab = parseInt(match[1], 10);
+                    if (running.indexOf(lab) === -1) {
+                        el.hidden = false;
+                        el.className = "lab-status lab-status--warn";
+                        el.innerHTML =
+                            "ATENÇÃO: o laboratório deste desafio não está ativo. " +
+                            "Pare o laboratório atual e inicie este: <code>" +
+                            START_CMD[lab] + "</code>";
+                    } else {
+                        el.hidden = true;
+                    }
+                } else {
+                    if (running.length === 1) {
+                        el.hidden = false;
+                        el.className = "lab-status lab-status--info";
+                        el.textContent =
+                            "Terminal conectado ao Desafio " + running[0] +
+                            " (http://localhost:7681).";
+                    } else if (running.length === 0) {
+                        el.hidden = false;
+                        el.className = "lab-status lab-status--warn";
+                        el.innerHTML =
+                            "Nenhum laboratório ativo. Inicie o Desafio 01: <code>" +
+                            START_CMD[1] + "</code>";
+                    } else {
+                        el.hidden = false;
+                        el.className = "lab-status lab-status--warn";
+                        el.textContent =
+                            "Vários laboratórios ativos ao mesmo tempo — " +
+                            "derrube os demais: " +
+                            running.map(function (n) { return "Desafio " + n; }).join(", ");
+                    }
+                }
+            })
+            .catch(function () { /* sem rede, ignora */ });
+    }
+
     function getDone(lab) {
         return localStorage.getItem("probatio_done_" + lab) === "1";
     }
@@ -69,6 +121,8 @@
     document.addEventListener("DOMContentLoaded", function () {
         updateSelector();
         guardCurrentLab();
+        pollActive();
+        setInterval(pollActive, 5000);
 
         document.querySelectorAll(".lab__hints-btn").forEach(function (btn) {
             btn.addEventListener("click", function () {

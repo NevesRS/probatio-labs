@@ -1,11 +1,23 @@
 import os
+import time
 
+import markdown
 from flask import Flask, abort, jsonify, render_template, request
 
 app = Flask(__name__)
 
 FLAG_DIR = "/flags"
+HINTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "hints")
 VALID_LABS = (1, 2, 3)
+
+
+def render_hints(lab):
+    path = os.path.join(HINTS_DIR, f"hints-lab{lab}.md")
+    try:
+        with open(path, "r") as f:
+            return markdown.markdown(f.read(), extensions=["fenced_code", "tables"])
+    except OSError:
+        return "<p>Dicas não disponíveis.</p>"
 
 
 @app.route("/")
@@ -17,7 +29,7 @@ def index():
 def lab(lab):
     if lab not in VALID_LABS:
         abort(404)
-    return render_template(f"lab{lab}.html")
+    return render_template(f"lab{lab}.html", hints_html=render_hints(lab))
 
 
 @app.route("/submit", methods=["POST"])
@@ -59,6 +71,20 @@ def submit():
         "valid": False,
         "message": f"Flag incorreta para o desafio {lab}. Tente novamente.",
     })
+
+
+@app.route("/active")
+def active():
+    now = time.time()
+    running = []
+    for n in VALID_LABS:
+        heartbeat = os.path.join(FLAG_DIR, f"lab{n}", ".heartbeat")
+        try:
+            if now - os.path.getmtime(heartbeat) < 10:
+                running.append(n)
+        except OSError:
+            pass
+    return jsonify({"active": running})
 
 
 @app.route("/health")

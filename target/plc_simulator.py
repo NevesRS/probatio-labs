@@ -17,6 +17,7 @@ NUM_HOLDING_REGISTERS = 100
 INITIAL_VALUE = 50
 ANOMALY_THRESHOLD = 150
 FLAG_PATH = "/flag/flag.txt"
+HEARTBEAT_PATH = "/flag/.heartbeat"
 
 INSTANCE_SEED = str(uuid.uuid4())
 FLAG_HASH = hashlib.sha256(INSTANCE_SEED.encode()).hexdigest()[:16]
@@ -32,11 +33,20 @@ def generate_flag():
     print(f"[WATCHER] Flag written to {FLAG_PATH}: {FLAG_TEXT}")
 
 
+def touch_heartbeat():
+    try:
+        with open(HEARTBEAT_PATH, "w") as f:
+            f.write(str(time.time()))
+    except OSError:
+        pass
+
+
 def watcher(store):
     global flag_written
     while True:
         time.sleep(1)
         try:
+            touch_heartbeat()
             context = store[0]
             value = context.getValues(3, CRITICAL_REGISTER_ADDR, count=1)[0]
             print(f"[WATCHER] CRITICAL_REGISTER={value}")
